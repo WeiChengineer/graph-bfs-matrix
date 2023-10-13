@@ -1,19 +1,53 @@
 function findNeighbors(node, matrix) {
-    // Up
-
-    // Down
-
-    // Left
-
-    // Right
-
-    // Your code here
-}
+        // Create an array to hold the valid neighbors
+        const neighbors = [];
+        const [i, j] = node;
+    
+        // UP:
+            // Identify the node above the current node, if it exists
+            // Push that node into the new array
+            if (i > 0) neighbors.push([i - 1, j]);
+    
+        // DOWN:
+            // Identify the node below the current node, if it exists
+            // Push that node into the new array
+            if (i < matrix.length - 1) neighbors.push([i + 1, j])
+    
+        // LEFT:
+            // Identify the node to the left of the current node, if it exists
+            // Push that node into the new array
+            if (j > 0) neighbors.push([i, j - 1])
+    
+        // RIGHT:
+            // Identify the node to the right of the current node, if it exists
+            // Push that node into the new array
+            if (j < matrix[0].length - 1) neighbors.push([i, j + 1])
+    
+        // Return the neighbors array
+        return neighbors;
+    }
 
 
 function bfsPath(matrix, startNode, endValue) {
     // Your code here
-}
+    let returnArr = [] 
+    let visited = new Set()
+    visited.add(`${startNode}`)
+    let queue = [startNode]
+    while(queue.length > 0){
+        let curr = queue.shift() 
+        returnArr.push(curr) 
+        if(matrix[curr[0]][curr[1]] === endValue) return returnArr 
+        let neigh = findNeighbors(curr, matrix)
+        neigh.forEach(n => {
+            if(!visited.has(`${n}`)){
+                visited.add(`${n}`)
+                queue.push(n)
+            }
+        });
+    }
+    return false 
+    }
 
 
 // ***** UNCOMMENT FOR LOCAL TESTING *****
